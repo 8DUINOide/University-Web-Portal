@@ -1,0 +1,124 @@
+/* Custom styles to complement Tailwind */
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+}
+
+header, footer {
+    background-color: #1E3A8A; /* Blue from the screenshot */
+}
+
+.card {
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+button {
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover:not(:disabled) {
+    transform: scale(1.05);
+}
+
+.fade-in {
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.slide-in {
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+aside.bg-blue-50 {
+    background-color: #E6F0FA; /* Light blue from the screenshot announcements */
+}
+
+/* Ensure login section background is not repeated */
+#loginSection {
+    background: linear-gradient(to bottom, #e6f0fa, #ffffff); /* Fallback gradient */
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+/* Style placeholder text for login inputs */
+#loginSection input::placeholder {
+    color: #6b7280; /* Tailwind gray-500 */
+    opacity: 1;
+}
+
+/* Adjust login form container */
+#loginSection .bg-white {
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white */
+    border-radius: 1.5rem; /* Tailwind rounded-3xl */
+}
+
+/* Calendar cell height */
+#calendarDays > div {
+    height: 6rem;
+}
+
+/* Credited Subjects table styling */
+.credited-subjects-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.credited-subjects-table th,
+.credited-subjects-table td {
+    border: 1px solid #e5e7eb; /* Tailwind gray-200 */
+    text-align: left;
+}
+
+.credited-subjects-table th {
+    background-color: #1E3A8A; /* Blue from the screenshot */
+    color: white;
+    font-weight: bold;
+}
+
+.credited-subjects-table tbody tr:nth-child(even) {
+    background-color: #f9fafb; /* Tailwind gray-50 */
+}
+
+.credited-subjects-table tbody tr:hover {
+    background-color: #f3f4f6; /* Tailwind gray-100 */
+}
+
+/* Grades table styling */
+.grades-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.grades-table th,
+.grades-table td {
+    border: 1px solid #e5e7eb; /* Tailwind gray-200 */
+    text-align: left;
+}
+
+.grades-table th {
+    background-color: #1E3A8A; /* Blue from the screenshot */
+    color: white;
+    font-weight: bold;
+}
+
+.grades-table tbody tr:nth-child(even) {
+    background-color: #f9fafb; /* Tailwind gray-50 */
+}
+
+.grades-table tbody tr:hover {
+    background-color: #f3f4f6; /* Tailwind gray-100 */
+}
