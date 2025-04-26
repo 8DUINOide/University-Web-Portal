@@ -1,124 +1,188 @@
-/* Custom styles to complement Tailwind */
+/* Custom styles to complement Tailwind CSS, providing additional styling beyond Tailwind's utility classes */
 body {
+    /* Sets the default font for the entire page to Poppins, imported via Google Fonts in index.html */
     font-family: 'Poppins', sans-serif;
+    /* Defines the line height for text, improving readability; adjust to 1.5 or 1.8 for different spacing */
     line-height: 1.6;
 }
 
+/* Styles for header and footer elements to ensure consistent branding */
 header, footer {
+    /* Applies a dark blue background color matching the screenshot; change to another hex code (e.g., #2B6CB0) for different branding */
     background-color: #1E3A8A; /* Blue from the screenshot */
 }
 
+/* Styles for elements with the 'card' class, used for course cards and similar components */
 .card {
+    /* Adds smooth transitions for transform and box-shadow properties on hover; adjust duration (e.g., 0.3s) for slower/faster effects */
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
+/* Hover effect for card elements to enhance interactivity */
 .card:hover {
+    /* Moves the card 5px upward on hover; modify translateY value (e.g., -10px) for a stronger lift effect */
     transform: translateY(-5px);
+    /* Adds a subtle shadow on hover; adjust shadow values or color for different effects */
     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
 }
 
+/* Default styles for all button elements to ensure consistent interactivity */
 button {
+    /* Enables smooth transitions for background color and transform; modify properties (e.g., add color) for additional effects */
     transition: background-color 0.3s, transform 0.2s;
 }
 
+/* Hover effect for buttons, excluding disabled ones */
 button:hover:not(:disabled) {
+    /* Slightly scales up the button on hover; adjust scale (e.g., 1.1) for a more pronounced effect */
     transform: scale(1.05);
 }
 
+button:focus, a:focus, input:focus {
+    outline: 2px solid #1E3A8A; /* Matches your blue theme */
+    outline-offset: 2px;
+}
+
+/* Class for fade-in animation, applied to sections when they become visible */
 .fade-in {
+    /* Applies the fadeIn animation with a 0.3s duration and ease-in timing; modify duration or timing function (e.g., ease-out) as needed */
     animation: fadeIn 0.3s ease-in;
 }
 
+/* Defines the fadeIn keyframe animation for fading in elements */
 @keyframes fadeIn {
+    /* Starting state: fully transparent and 10px below original position */
     from { opacity: 0; transform: translateY(10px); }
+    /* Ending state: fully opaque and at original position */
     to { opacity: 1; transform: translateY(0); }
 }
 
+/* Class for slide-in animation, used for modals and login form */
 .slide-in {
+    /* Applies the slideIn animation with a 0.3s duration and ease-out timing; adjust duration for faster/slower slides */
     animation: slideIn 0.3s ease-out;
 }
 
+/* Defines the slideIn keyframe animation for sliding in elements */
 @keyframes slideIn {
+    /* Starting state: fully transparent and 20px to the left */
     from { opacity: 0; transform: translateX(-20px); }
+    /* Ending state: fully opaque and at original position */
     to { opacity: 1; transform: translateX(0); }
 }
 
+/* Styles for the announcements sidebar with Tailwind's bg-blue-50 class */
 aside.bg-blue-50 {
+    /* Overrides Tailwind's bg-blue-50 with a light blue color from the screenshot; modify to another hex code for different styling */
     background-color: #E6F0FA; /* Light blue from the screenshot announcements */
 }
 
-/* Ensure login section background is not repeated */
+/* Ensures the login section background is styled appropriately */
 #loginSection {
+    /* Applies a fallback linear gradient from light blue to white if the lazy-loaded background fails; adjust colors or direction (e.g., to right) */
     background: linear-gradient(to bottom, #e6f0fa, #ffffff); /* Fallback gradient */
+    /* Ensures the background covers the entire section; modify to contain for different scaling */
     background-size: cover;
+    /* Prevents the background image from repeating; typically no need to change */
     background-repeat: no-repeat;
 }
 
-/* Style placeholder text for login inputs */
+/* Styles the placeholder text for inputs within the login section */
 #loginSection input::placeholder {
+    /* Sets placeholder text color to Tailwind's gray-500; change to another color (e.g., #9CA3AF) for contrast */
     color: #6b7280; /* Tailwind gray-500 */
+    /* Ensures placeholder text is fully opaque; adjust to 0.7 for a lighter appearance */
     opacity: 1;
 }
 
-/* Adjust login form container */
+/* Styles the login form container, which uses Tailwind's bg-white class */
 #loginSection .bg-white {
+    /* Applies a semi-transparent white background for a frosted glass effect; adjust opacity (e.g., 0.9) for more/less transparency */
     background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white */
+    /* Sets a large border radius matching Tailwind's rounded-3xl; modify to 1rem for a less rounded look */
     border-radius: 1.5rem; /* Tailwind rounded-3xl */
 }
 
-/* Calendar cell height */
+/* Sets the height for calendar day cells */
 #calendarDays > div {
+    /* Defines a fixed height of 6rem for calendar cells; adjust to 5rem or 7rem for smaller/larger cells */
     height: 6rem;
 }
 
-/* Credited Subjects table styling */
+/* Styles for the credited subjects table */
 .credited-subjects-table {
+    /* Collapses table borders for a cleaner look; change to separate for distinct borders */
     border-collapse: collapse;
+    /* Ensures the table takes the full width of its container; modify to a fixed width (e.g., 80%) if needed */
     width: 100%;
 }
 
+/* Styles for table headers and cells in the credited subjects table */
 .credited-subjects-table th,
 .credited-subjects-table td {
+    /* Adds a light gray border matching Tailwind's gray-200; change color or thickness (e.g., 2px) for emphasis */
     border: 1px solid #e5e7eb; /* Tailwind gray-200 */
+    /* Aligns text to the left for readability; modify to center or right for different layouts */
     text-align: left;
 }
 
+/* Specific styles for table headers in the credited subjects table */
 .credited-subjects-table th {
+    /* Sets a dark blue background matching the screenshot; change to another color for branding */
     background-color: #1E3A8A; /* Blue from the screenshot */
+    /* Uses white text for contrast; modify to a lighter shade (e.g., #E5E7EB) if needed */
     color: white;
+    /* Makes header text bold; adjust font-weight (e.g., 600) for a lighter effect */
     font-weight: bold;
 }
 
+/* Styles even-numbered rows in the credited subjects table for readability */
 .credited-subjects-table tbody tr:nth-child(even) {
+    /* Applies a light gray background matching Tailwind's gray-50; change to #EDF2F7 for a different shade */
     background-color: #f9fafb; /* Tailwind gray-50 */
 }
 
+/* Hover effect for rows in the credited subjects table */
 .credited-subjects-table tbody tr:hover {
+    /* Changes background to a slightly darker gray on hover; modify to a different color (e.g., #E5E7EB) for contrast */
     background-color: #f3f4f6; /* Tailwind gray-100 */
 }
 
-/* Grades table styling */
+/* Styles for the grades table, similar to credited subjects table */
 .grades-table {
+    /* Collapses borders for a seamless look; change to separate for distinct cell borders */
     border-collapse: collapse;
+    /* Ensures the table spans the full container width; adjust to a percentage or fixed value if needed */
     width: 100%;
 }
 
+/* Styles for table headers and cells in the grades table */
 .grades-table th,
 .grades-table td {
+    /* Adds a light gray border matching Tailwind's gray-200; modify color or thickness for different styling */
     border: 1px solid #e5e7eb; /* Tailwind gray-200 */
+    /* Aligns text to the left; change to center or right for alternative layouts */
     text-align: left;
 }
 
+/* Specific styles for table headers in the grades table */
 .grades-table th {
+    /* Sets a dark blue background matching the screenshot; adjust to match your branding */
     background-color: #1E3A8A; /* Blue from the screenshot */
+    /* Uses white text for high contrast; modify to another color if needed */
     color: white;
+    /* Makes header text bold; adjust font-weight for a lighter appearance */
     font-weight: bold;
 }
 
+/* Styles even-numbered rows in the grades table for visual distinction */
 .grades-table tbody tr:nth-child(even) {
+    /* Applies a light gray background matching Tailwind's gray-50; change to another subtle color if desired */
     background-color: #f9fafb; /* Tailwind gray-50 */
 }
 
+/* Hover effect for rows in the grades table */
 .grades-table tbody tr:hover {
+    /* Changes background to a slightly darker gray on hover; adjust to a different color for a unique effect */
     background-color: #f3f4f6; /* Tailwind gray-100 */
 }

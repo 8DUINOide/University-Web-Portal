@@ -1,221 +1,374 @@
-<!-- index.html -->
 <!DOCTYPE html>
+<!-- Declares the document type as HTML5 -->
 <html lang="en" data-theme="light">
+<!-- Sets the document language to English and applies a light theme for styling -->
 <head>
+    <!-- Specifies UTF-8 character encoding for universal character support -->
     <meta charset="UTF-8">
+    <!-- Ensures responsive design by setting viewport to device width and initial scale -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Sets the page title displayed in the browser tab -->
     <title>MyUniversity Portal</title>
+    <!-- Includes Tailwind CSS via CDN for utility-first styling; consider local hosting for production -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Includes jsPDF library for PDF generation (e.g., SOA download); version 2.5.1 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- Imports Poppins font from Google Fonts for consistent typography (weights: 400, 500, 700) -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Includes Font Awesome for icons (e.g., sidebar navigation); version 5.15.4 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Links custom styles.css for additional styling; ensure this file exists in the project directory -->
     <link rel="stylesheet" href="styles.css">
 </head>
 <body class="bg-gradient-to-b from-gray-100 to-white font-poppins">
+    <!-- Applies a gradient background and Poppins font to the body -->
+
     <!-- Login Screen -->
     <section id="loginSection" class="min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat lazy-bg" data-bg="/images/hero-login.jpg" aria-label="Login Page">
+        <!-- Full-screen login section with centered content and lazy-loaded background image -->
         <div class="bg-white bg-opacity-80 p-10 rounded-3xl shadow-2xl max-w-sm w-full slide-in">
+            <!-- Semi-transparent white card with padding, rounded corners, and shadow for login form -->
             <img src="/images/logo.jpg" alt="MyUniversity Logo" class="h-14 mx-auto mb-6" aria-hidden="true">
+            <!-- Displays university logo; replace src with actual path; marked as decorative -->
             <h2 class="text-2xl font-bold text-center text-blue-900 mb-8">MyUniversity Login</h2>
+            <!-- Centered login title with bold blue text -->
             <form class="space-y-5" onsubmit="event.preventDefault(); login();">
+                <!-- Form with vertical spacing; prevents default submission and calls login() function -->
                 <div>
                     <label for="studentId" class="sr-only">Student ID</label>
+                    <!-- Hidden label for accessibility; associated with student ID input -->
                     <input id="studentId" type="text" placeholder="Student ID" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500" oninput="validateLogin()" aria-required="true">
+                    <!-- Text input for student ID with styling, validation on input, and accessibility attributes -->
                     <p id="studentIdError" class="text-red-600 text-sm mt-1 hidden" role="alert">Student ID is required</p>
+                    <!-- Error message for student ID; hidden by default; accessible alert role -->
                 </div>
                 <div>
                     <label for="password" class="sr-only">Password</label>
+                    <!-- Hidden label for accessibility; associated with password input -->
                     <input id="password" type="password" placeholder="Password" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500" oninput="validateLogin()" aria-required="true">
+                    <!-- Password input with styling, validation on input, and accessibility attributes -->
                     <p id="passwordError" class="text-red-600 text-sm mt-1 hidden" role="alert">Password is required</p>
+                    <!-- Error message for password; hidden by default; accessible alert role -->
                 </div>
                 <button type="submit" class="w-full bg-gray-400 text-white p-3 rounded-lg hover:bg-gray-500 transition disabled:bg-gray-300 group relative" disabled aria-label="Sign In">
+                    <!-- Submit button; disabled by default; includes hover tooltip and accessibility label -->
                     <span class="absolute hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2 -top-8 left-1/2 transform -translate-x-1/2">Sign In</span>
+                    <!-- Tooltip for button; appears on hover; centered above button -->
                     Sign In
                 </button>
                 <p class="text-center text-sm"><a href="#" class="text-blue-600 hover:underline" aria-label="Forgot Password">Forgot Password?</a></p>
+                <!-- Centered link for password recovery; placeholder href needs actual URL -->
             </form>
         </div>
     </section>
 
     <!-- Dashboard Screen -->
     <div id="dashboard" class="hidden">
+        <!-- Main dashboard container; hidden by default until login -->
         <header class="bg-blue-900 text-white py-4 shadow-lg" role="banner">
+            <!-- Header with dark blue background, white text, and shadow; accessible as banner -->
             <div class="container mx-auto px-4 flex justify-between items-center">
+                <!-- Responsive container for header content -->
                 <div class="flex items-center">
                     <img src="/images/logo.jpg" alt="MyUniversity Logo" class="h-10 mr-4" aria-hidden="true">
+                    <!-- University logo; replace src with actual path; marked as decorative -->
                     <h1 class="text-xl font-bold">MyUniversity Portal</h1>
+                    <!-- Portal title; bold and prominent -->
                 </div>
                 <nav aria-label="Main Navigation" class="flex items-center">
+                    <!-- Navigation menu with accessibility label -->
                     <button id="menuToggle" class="md:hidden text-white hover:text-yellow-300 focus:outline-none" aria-label="Toggle Menu">
+                        <!-- Hamburger menu button for mobile; hidden on medium screens and above -->
                         <i class="fas fa-bars text-xl"></i>
+                        <!-- Font Awesome icon for menu -->
                     </button>
                     <ul id="navMenu" class="hidden md:flex space-x-4 items-center">
-                        
+                        <!-- Navigation links; hidden on mobile, flex on medium screens -->
                         <li><button onclick="showScreen('schedule')" class="hover:text-yellow-300 transition" aria-label="Schedule">Schedule</button></li>
+                        <!-- Button to show schedule section -->
                         <li><button onclick="showScreen('calendar')" class="hover:text-yellow-300 transition" aria-label="Calendar">Calendar</button></li>
+                        <!-- Button to show calendar section -->
                         <li><button onclick="showScreen('messages')" class="hover:text-yellow-300 transition" aria-label="Messages">Messages</button></li>
+                        <!-- Button to show messages section -->
                         <li><button onclick="showScreen('profile')" class="hover:text-yellow-300 transition" aria-label="Profile">Profile</button></li>
+                        <!-- Button to show profile section -->
                         <li><button onclick="logout()" class="hover:text-yellow-300 transition" aria-label="Logout">Logout</button></li>
+                        <!-- Button to log out -->
                         <li><span id="notificationCount" class="bg-red-600 text-white rounded-full px-2 py-1 text-xs hidden" aria-live="polite">0</span></li>
+                        <!-- Notification count badge; hidden by default; updates dynamically -->
                     </ul>
                 </nav>
             </div>
         </header>
 
         <main class="container mx-auto px-4 py-8 flex" role="main">
+            <!-- Main content area with responsive container and flex layout; accessible as main -->
             <!-- Sidebar -->
             <aside id="sidebar" class="w-64 bg-gray-800 text-white p-6 shadow-lg mr-6 hidden md:block" aria-label="Sidebar Navigation">
+                <!-- Sidebar for navigation; hidden on mobile, visible on medium screens -->
                 <div class="flex items-center mb-6">
-                    <img src="/images/logo.jpg" alt="MyUniversity Logo" class="h-8 mr-2" aria-hidden="true">
+                    <img src="/images/logo.jpg" alt="MyUniversity Logo" class="h-14 mx-auto mb-6" loading="lazy" aria-hidden="true">
+                    <!-- Sidebar logo; replace src with actual path -->
                     <h3 class="text-lg font-semibold">AL FRANCIS B. PAZ</h3>
+                    <!-- Static student name; replace with dynamic data in production -->
                 </div>
                 <ul class="space-y-4">
+                    <!-- Sidebar navigation list with vertical spacing -->
                     <li><button onclick="showScreen('dashboard-home')" class="flex items-center text-white hover:text-yellow-300 w-full text-left" aria-label="Home"><i class="fas fa-home mr-2"></i> Home</button></li>
+                    <!-- Home button with icon -->
                     <li><button onclick="showScreen('offerings')" class="flex items-center text-white hover:text-yellow-300 w-full text-left" aria-label="Offerings"><i class="fas fa-book mr-2"></i> Offerings</button></li>
+                    <!-- Offerings button with icon -->
                     <li><button onclick="showScreen('schedule')" class="flex items-center text-white hover:text-yellow-300 w-full text-left" aria-label="Advisement"><i class="fas fa-calendar-check mr-2"></i> Advisement</button></li>
+                    <!-- Advisement (schedule) button with icon -->
                     <li><button onclick="showScreen('grades')" class="flex items-center text-white hover:text-yellow-300 w-full text-left" aria-label="Grades"><i class="fas fa-graduation-cap mr-2"></i> Grades</button></li>
+                    <!-- Grades button with icon -->
                     <li><button onclick="showScreen('credited-subjects')" class="flex items-center text-white hover:text-yellow-300 w-full text-left" aria-label="My Credited Subjects"><i class="fas fa-graduation-cap mr-2"></i> My Credited Subjects</button></li>
+                    <!-- Credited subjects button with icon -->
                     <li><button onclick="showScreen('subjects')" class="flex items-center text-white hover:text-yellow-300 w-full text-left" aria-label="My Subjects"><i class="fas fa-book-open mr-2"></i> My Subjects</button></li>
+                    <!-- Subjects button with icon -->
                     <li><button onclick="showScreen('soa')" class="flex items-center text-white hover:text-yellow-300 w-full text-left" aria-label="Accounts"><i class="fas fa-wallet mr-2"></i> Accounts</button></li>
+                    <!-- Accounts (SOA) button with icon -->
                     <li><button onclick="showScreen('profile')" class="flex items-center text-white hover:text-yellow-300 w-full text-left" aria-label="Profile"><i class="fas fa-user mr-2"></i> Profile</button></li>
+                    <!-- Profile button with icon -->
                     <li><button onclick="showScreen('messages')" class="flex items-center text-white hover:text-yellow-300 w-full text-left" aria-label="Messages"><i class="fas fa-envelope mr-2"></i> Messages</button></li>
+                    <!-- Messages button with icon -->
                 </ul>
             </aside>
 
             <!-- Mobile Sidebar -->
             <div id="mobileSidebar" class="fixed inset-0 bg-gray-800 text-white p-6 z-50 hidden md:hidden" aria-label="Mobile Sidebar Navigation">
+                <!-- Mobile sidebar; full-screen overlay; hidden on medium screens -->
                 <div class="flex justify-between items-center mb-6">
                     <div class="flex items-center">
                         <img src="/images/logo.jpg" alt="MyUniversity Logo" class="h-8 mr-2" aria-hidden="true">
+                        <!-- Mobile sidebar logo; replace src with actual path -->
                         <h3 class="text-lg font-semibold">AL FRANCIS B. PAZ</h3>
+                        <!-- Static student name; replace with dynamic data -->
                     </div>
                     <button onclick="toggleMobileSidebar()" class="text-white hover:text-yellow-300" aria-label="Close Menu">
+                        <!-- Close button for mobile sidebar -->
                         <i class="fas fa-times text-xl"></i>
+                        <!-- Font Awesome close icon -->
                     </button>
                 </div>
                 <ul class="space-y-4">
+                    <!-- Mobile sidebar navigation list -->
                     <li><button onclick="showScreen('dashboard-home'); toggleMobileSidebar()" class="flex items-center text-white hover:text-yellow-300 w-full text-left" aria-label="Home"><i class="fas fa-home mr-2"></i> Home</button></li>
+                    <!-- Home button; closes sidebar on click -->
                     <li><button onclick="showScreen('offerings'); toggleMobileSidebar()" class="flex items-center text-white hover:text-yellow-300 w-full text-left" aria-label="Offerings"><i class="fas fa-book mr-2"></i> Offerings</button></li>
+                    <!-- Offerings button -->
                     <li><button onclick="showScreen('schedule'); toggleMobileSidebar()" class="flex items-center text-white hover:text-yellow-300 w-full text-left" aria-label="Advisement"><i class="fas fa-calendar-check mr-2"></i> Advisement</button></li>
+                    <!-- Advisement button -->
                     <li><button onclick="showScreen('grades'); toggleMobileSidebar()" class="flex items-center text-white hover:text-yellow-300 w-full text-left" aria-label="Grades"><i class="fas fa-graduation-cap mr-2"></i> Grades</button></li>
+                    <!-- Grades button -->
                     <li><button onclick="showScreen('credited-subjects'); toggleMobileSidebar()" class="flex items-center text-white hover:text-yellow-300 w-full text-left" aria-label="My Credited Subjects"><i class="fas fa-graduation-cap mr-2"></i> My Credited Subjects</button></li>
+                    <!-- Credited subjects button -->
                     <li><button onclick="showScreen('subjects'); toggleMobileSidebar()" class="flex items-center text-white hover:text-yellow-300 w-full text-left" aria-label="My Subjects"><i class="fas fa-book-open mr-2"></i> My Subjects</button></li>
+                    <!-- Subjects button -->
                     <li><button onclick="showScreen('soa'); toggleMobileSidebar()" class="flex items-center text-white hover:text-yellow-300 w-full text-left" aria-label="Accounts"><i class="fas fa-wallet mr-2"></i> Accounts</button></li>
+                    <!-- Accounts button -->
                     <li><button onclick="showScreen('profile'); toggleMobileSidebar()" class="flex items-center text-white hover:text-yellow-300 w-full text-left" aria-label="Profile"><i class="fas fa-user mr-2"></i> Profile</button></li>
+                    <!-- Profile button -->
                     <li><button onclick="showScreen('messages'); toggleMobileSidebar()" class="flex items-center text-white hover:text-yellow-300 w-full text-left" aria-label="Messages"><i class="fas fa-envelope mr-2"></i> Messages</button></li>
+                    <!-- Messages button -->
                     <li><button onclick="logout(); toggleMobileSidebar()" class="flex items-center text-white hover:text-yellow-300 w-full text-left" aria-label="Logout"><i class="fas fa-sign-out-alt mr-2"></i> Logout</button></li>
+                    <!-- Logout button -->
                 </ul>
             </div>
 
             <!-- Main Content -->
             <div class="flex-1 flex">
+                <!-- Flex container for main content and announcements sidebar -->
                 <div class="flex-1">
+                    <!-- Main content area; takes remaining space -->
                     <!-- Dashboard Home -->
                     <section id="dashboard-home" class="mb-12 fade-in" aria-label="Dashboard Home">
+                        <!-- Home section with fade-in animation -->
                         <h2 class="text-2xl font-bold mb-4">Welcome, <span id="studentName">Student</span></h2>
-                        <div id="notifications" class="bg-yellow-50 p-4 rounded-lg shadow mb-6" aria-live="polite"></div>
+                        <!-- Welcome message with dynamic student name -->
+                        <div id="notifications" class="bg-yellow-50 p-4 rounded-lg shadow mb-6" role="region" aria-labelledby="notifications-heading" aria-live="polite">
+                            <h3 id="notifications-heading" class="font-semibold mb-2 text-blue-900">Notifications</h3>
+                        </div>
                     </section>
 
                     <!-- Course Schedule -->
                     <section id="schedule" class="mb-12 hidden fade-in" aria-label="Course Schedule">
+                        <!-- Schedule section; hidden by default -->
                         <div class="flex justify-between items-center mb-4">
                             <h2 class="text-2xl font-bold">Course Schedule</h2>
-                            <button onclick="toggleSection('schedule-list')" class="text-blue-600 hover:underline" aria-label="Toggle Schedule List">Toggle</button>
+                            <!-- Section title -->
+                            <button onclick="toggleSection('schedule-list')" class="text-blue-600 hover:underline" aria-label="Toggle Schedule List" aria-expanded="false" id="scheduleToggle">Toggle</button>
+                            <!-- Button to toggle schedule list visibility -->
                         </div>
                         <div class="flex items-center mb-4">
                             <input id="scheduleSearch" type="text" placeholder="Search courses..." class="w-full p-3 border rounded-lg" oninput="filterCourses('schedule')" aria-label="Search Schedules">
+                            <!-- Search input for filtering schedules -->
                             <span id="scheduleLoading" class="ml-2 hidden"><svg class="w-5 h-5 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 12a8 8 0 0116 0"></path></svg></span>
+                            <!-- Loading spinner; hidden by default -->
                         </div>
                         <button onclick="downloadSchedule()" class="mb-4 bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 group relative" aria-label="Download Schedule">
+                            <!-- Button to download schedule; placeholder functionality -->
                             <span class="absolute hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2 -top-8 left-1/2 transform -translate-x-1/2">Download</span>
+                            <!-- Tooltip for button -->
                             Download Schedule
                         </button>
-                        <div id="schedule-list" class="grid gap-4" role="list"></div>
+                        <div id="schedule-list" class="grid gap-4" role="list">
+                            <!-- Container for schedule items; populated dynamically -->
+                        </div>
                         <div class="flex justify-between mt-4">
                             <button id="schedulePrev" class="bg-blue-900 text-white px-4 py-2 rounded-lg hover:bg-blue-800 disabled:bg-gray-400" disabled aria-label="Previous Page">Previous</button>
+                            <!-- Previous page button; disabled by default -->
                             <button id="scheduleNext" class="bg-blue-900 text-white px-4 py-2 rounded-lg hover:bg-blue-800" aria-label="Next Page">Next</button>
+                            <!-- Next page button -->
                         </div>
                     </section>
 
                     <!-- Grades -->
                     <section id="grades" class="mb-12 hidden fade-in" aria-label="Grades">
+                        <!-- Grades section; hidden by default -->
                         <div class="flex justify-between items-center mb-4">
                             <div class="flex items-center space-x-2">
                                 <button onclick="prevSchoolYear()" class="bg-blue-900 text-white px-3 py-1 rounded-lg hover:bg-blue-800" aria-label="Previous School Year"><i class="fas fa-chevron-left"></i> Prev</button>
+                                <!-- Button to navigate to previous school year -->
                                 <span id="schoolYear" class="text-lg font-semibold">School Year 2024-2025</span>
+                                <!-- Display for current school year -->
                                 <button onclick="nextSchoolYear()" class="bg-blue-900 text-white px-3 py-1 rounded-lg hover:bg-blue-800" aria-label="Next School Year">Next <i class="fas fa-chevron-right"></i></button>
+                                <!-- Button to navigate to next school year -->
                             </div>
                             <div class="text-right">
                                 <p class="text-sm font-semibold text-green-600">General QPI: <span id="generalQPI">0.00</span></p>
+                                <!-- Display for general QPI -->
                             </div>
                         </div>
                         <div id="grades-list" class="bg-white p-6 rounded-lg shadow overflow-x-auto" role="list">
+                            <!-- Container for grades table; scrollable horizontally -->
                             <!-- Table will be populated dynamically -->
                         </div>
                     </section>
 
                     <!-- My Credited Subjects -->
                     <section id="credited-subjects" class="mb-12 hidden fade-in" aria-label="My Credited Subjects">
+                        <!-- Credited subjects section; hidden by default -->
                         <h2 class="text-2xl font-bold mb-4">My Credited Subjects</h2>
+                        <!-- Section title -->
                         <div id="credited-subjects-list" class="bg-green-50 p-6 rounded-lg shadow overflow-x-auto" role="list">
+                            <!-- Container for credited subjects table; scrollable -->
                             <!-- Table will be populated dynamically -->
                         </div>
                     </section>
 
                     <!-- My Subjects -->
                     <section id="subjects" class="mb-12 hidden fade-in" aria-label="My Subjects">
+                        <!-- Subjects section; hidden by default -->
                         <div class="flex justify-between items-center mb-4">
                             <div class="flex items-center space-x-2">
                                 <button onclick="prevSemester()" class="bg-blue-900 text-white px-3 py-1 rounded-lg hover:bg-blue-800" aria-label="Previous Semester"><i class="fas fa-chevron-left"></i> Prev</button>
+                                <!-- Button to navigate to previous semester -->
                                 <span id="semesterYear" class="text-lg font-semibold">2nd Semester School Year 2024-2025</span>
+                                <!-- Display for current semester and year -->
                                 <button onclick="nextSemester()" class="bg-blue-900 text-white px-3 py-1 rounded-lg hover:bg-blue-800" aria-label="Next Semester">Next <i class="fas fa-chevron-right"></i></button>
+                                <!-- Button to navigate to next semester -->
                             </div>
                         </div>
                         <div id="subjects-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" role="list">
+                            <!-- Grid container for subject cards; responsive columns -->
                             <!-- Subject cards will be populated dynamically -->
                         </div>
                     </section>
 
                     <!-- Statement of Account -->
-                    <section id="soa" class="mb-12 hidden fade-in" aria-label="Statement of Account">
-                        <h2 class="text-2xl font-bold mb-4">Statement of Account</h2>
-                        <div class="bg-white p-6 rounded-lg shadow">
-                            <p class="mb-4">Total Balance: $<span id="soa-balance">0.00</span></p>
-                            <button onclick="printSOA()" class="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 group relative" aria-label="Download SOA as PDF">
-                                <span class="absolute hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2 -top-8 left-1/2 transform -translate-x-1/2">Download PDF</span>
-                                Download SOA
-                            </button>
-                        </div>
-                    </section>
-
+<section id="soa" class="mb-12 hidden fade-in" aria-label="Statement of Account">
+    <!-- SOA section; hidden by default until selected; includes fade-in animation -->
+    <h2 class="text-2xl font-bold mb-4">Statement of Account</h2>
+    <!-- Section title with bold styling -->
+    <div class="bg-white p-6 rounded-lg shadow">
+        <!-- Card for SOA details with white background, padding, and shadow -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <!-- Grid layout for key SOA details; responsive for medium screens -->
+            <div>
+                <p class="mb-2"><strong>Total Balance:</strong> $<span id="soa-balance">0.00</span></p>
+                <!-- Displays total balance; populated dynamically -->
+                <p class="mb-2"><strong>Next Due Date:</strong> <span id="soa-dueDate">N/A</span></p>
+                <!-- Displays due date for next payment -->
+                <p class="mb-2"><strong>Next Due Amount:</strong> $<span id="soa-nextDueAmount">0.00</span></p>
+                <!-- Displays amount due for next payment -->
+            </div>
+            <div>
+                <p class="mb-2"><strong>Last Payment Date:</strong> <span id="soa-lastPaymentDate">N/A</span></p>
+                <!-- Displays date of last payment -->
+                <p class="mb-2"><strong>Account Status:</strong> <span id="soa-status">N/A</span></p>
+                <!-- Displays account status (e.g., Pending, Paid) -->
+            </div>
+        </div>
+        <h3 class="text-lg font-semibold text-blue-900 mb-4">Payment History</h3>
+        <!-- Subtitle for payment history section -->
+        <div id="soa-paymentHistory" class="overflow-x-auto">
+            <!-- Scrollable container for payment history table -->
+            <table class="w-full text-sm text-left text-gray-700">
+                <!-- Table for payment history -->
+                <thead class="text-xs text-white uppercase bg-blue-900">
+                    <tr>
+                        <th class="px-4 py-2">Date</th>
+                        <th class="px-4 py-2">Amount</th>
+                        <th class="px-4 py-2">Method</th>
+                    </tr>
+                </thead>
+                <tbody id="soa-paymentHistory-body">
+                    <!-- Table body; populated dynamically -->
+                </tbody>
+            </table>
+        </div>
+        <button onclick="printSOA()" class="mt-6 bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 group relative" aria-label="Download SOA as PDF">
+            <!-- Button to download SOA as PDF; styled with hover effect -->
+            <span class="absolute hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2 -top-8 left-1/2 transform -translate-x-1/2">Download PDF</span>
+            <!-- Tooltip for button; appears on hover -->
+            Download SOA
+        </button>
+    </div>
+</section>
                     <!-- Subject Offerings -->
                     <section id="offerings" class="mb-12 hidden fade-in" aria-label="Subject Offerings">
+                        <!-- Offerings section; hidden by default -->
                         <div class="flex justify-between items-center mb-4">
                             <h2 class="text-2xl font-bold">Subject Offerings</h2>
+                            <!-- Section title -->
                             <button onclick="toggleSection('offerings-list')" class="text-blue-600 hover:underline" aria-label="Toggle Offerings List">Toggle</button>
+                            <!-- Button to toggle offerings list -->
                         </div>
                         <div class="flex items-center mb-4">
                             <input id="offeringsSearch" type="text" placeholder="Search offerings..." class="w-full p-3 border rounded-lg" oninput="filterCourses('offerings')" aria-label="Search Offerings">
+                            <!-- Search input for filtering offerings -->
                             <span id="offeringsLoading" class="ml-2 hidden"><svg class="w-5 h-5 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 12a8 8 0 0116 0"></path></svg></span>
+                            <!-- Loading spinner -->
                         </div>
-                        <div id="offerings-list" class="grid gap-4" role="list"></div>
+                        <div id="offerings-list" class="grid gap-4" role="list">
+                            <!-- Container for offerings; populated dynamically -->
+                        </div>
                         <div class="flex justify-between mt-4">
                             <button id="offeringsPrev" class="bg-blue-900 text-white px-4 py-2 rounded-lg hover:bg-blue-800 disabled:bg-gray-400" disabled aria-label="Previous Page">Previous</button>
+                            <!-- Previous page button -->
                             <button id="offeringsNext" class="bg-blue-900 text-white px-4 py-2 rounded-lg hover:bg-blue-800" aria-label="Next Page">Next</button>
+                            <!-- Next page button -->
                         </div>
                     </section>
 
                     <!-- Academic Calendar -->
                     <section id="calendar" class="mb-12 hidden fade-in" aria-label="Academic Calendar">
+                        <!-- Calendar section; hidden by default -->
                         <div class="flex justify-between items-center mb-4">
                             <h2 class="text-2xl font-bold">Academic Calendar</h2>
+                            <!-- Section title -->
                             <div class="flex space-x-2">
                                 <button onclick="prevMonth()" class="bg-blue-900 text-white px-3 py-1 rounded-lg hover:bg-blue-800" aria-label="Previous Month"><i class="fas fa-chevron-left"></i></button>
+                                <!-- Button to navigate to previous month -->
                                 <span id="calendarMonth" class="text-lg font-semibold">April 2025</span>
+                                <!-- Display for current month -->
                                 <button onclick="nextMonth()" class="bg-blue-900 text-white px-3 py-1 rounded-lg hover:bg-blue-800" aria-label="Next Month"><i class="fas fa-chevron-right"></i></button>
+                                <!-- Button to navigate to next month -->
                             </div>
                         </div>
                         <div class="grid grid-cols-7 gap-1 text-center bg-white p-4 rounded-lg shadow">
+                            <!-- Grid for calendar days; 7 columns for days of the week -->
                             <div class="font-bold text-blue-900">Sun</div>
                             <div class="font-bold text-blue-900">Mon</div>
                             <div class="font-bold text-blue-900">Tue</div>
@@ -223,33 +376,52 @@
                             <div class="font-bold text-blue-900">Thu</div>
                             <div class="font-bold text-blue-900">Fri</div>
                             <div class="font-bold text-blue-900">Sat</div>
-                            <div id="calendarDays" class="col-span-7 grid grid-cols-7 gap-1"></div>
+                            <!-- Day-of-week headers -->
+                            <div id="calendarDays" class="col-span-7 grid grid-cols-7 gap-1">
+                                <!-- Container for calendar days; populated dynamically -->
+                            </div>
                         </div>
                     </section>
 
                     <!-- Messages -->
                     <section id="messages" class="mb-12 hidden fade-in" aria-label="Messages">
+                        <!-- Messages section; hidden by default -->
                         <h2 class="text-2xl font-bold mb-4">Messages</h2>
-                        <div id="messages-list" class="bg-white p-6 rounded-lg shadow" role="list"></div>
+                        <!-- Section title -->
+                        <div id="messages-list" class="bg-white p-6 rounded-lg shadow" role="list">
+                            <!-- Container for messages; populated dynamically -->
+                        </div>
                     </section>
 
                     <!-- Profile Screen -->
                     <section id="profile" class="mb-12 hidden fade-in" aria-label="Profile">
+                        <!-- Profile section; hidden by default -->
                         <h2 class="text-2xl font-bold mb-4">My Profile</h2>
+                        <!-- Section title -->
                         <div class="bg-white p-6 rounded-lg shadow">
+                            <!-- Card for profile details -->
                             <div class="mb-4">
                                 <label for="profile-name" class="block text-sm font-medium">Name</label>
+                                <!-- Label for name input -->
                                 <input id="profile-name" type="text" value="John Doe" class="p-2 border rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500" aria-required="true">
+                                <!-- Name input with default value -->
                                 <p id="nameError" class="text-red-600 text-sm mt-1 hidden" role="alert">Name is required</p>
+                                <!-- Error message for name; hidden by default -->
                             </div>
                             <p class="mb-4"><strong>Student ID:</strong> <span id="profile-id">123456</span></p>
+                            <!-- Display for student ID -->
                             <div class="mb-4">
                                 <label for="profile-email" class="block text-sm font-medium">Email</label>
+                                <!-- Label for email input -->
                                 <input id="profile-email" type="email" value="john.doe@myuniversity.edu" class="p-2 border rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500" oninput="validateEmail()" aria-required="true">
+                                <!-- Email input with validation -->
                                 <p id="emailError" class="text-red-600 text-sm mt-1 hidden" role="alert">Invalid email format</p>
+                                <!-- Error message for email -->
                             </div>
                             <button onclick="confirmSaveProfile()" class="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 group relative" aria-label="Save Profile Changes">
+                                <!-- Button to save profile changes -->
                                 <span class="absolute hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2 -top-8 left-1/2 transform -translate-x-1/2">Save</span>
+                                <!-- Tooltip for button -->
                                 Save Changes
                             </button>
                         </div>
@@ -258,26 +430,40 @@
 
                 <!-- Announcements Sidebar -->
                 <aside class="w-80 p-4 hidden lg:block" aria-label="Announcements">
+                    <!-- Announcements sidebar; visible on large screens -->
                     <div class="bg-blue-50 p-4 rounded-lg shadow mb-4">
+                        <!-- Card for announcements -->
                         <h3 class="text-lg font-bold text-blue-900 mb-2">Announcements</h3>
+                        <!-- Announcements title -->
                         <div class="space-y-4">
                             <div class="bg-white p-3 rounded-lg shadow">
+                                <!-- Individual announcement -->
                                 <h4 class="font-semibold text-blue-900">Advising Period</h4>
+                                <!-- Announcement title -->
                                 <p class="text-sm text-gray-700">March 15 - April 10, 2025. To schedule advising, please visit <a href="#" class="text-blue-600 hover:underline">https://services.myuniversity.edu</a>.</p>
+                                <!-- Announcement details with placeholder link -->
                             </div>
                         </div>
                     </div>
                     <div class="bg-blue-50 p-4 rounded-lg shadow">
+                        <!-- Card for payment methods -->
                         <h3 class="text-lg font-bold text-blue-900 mb-2">Offline Payments</h3>
+                        <!-- Payment methods title -->
                         <p class="text-sm text-gray-700 mb-2">The University presently utilizes the following payment methods:</p>
+                        <!-- Description -->
                         <div class="flex space-x-4">
+                            <!-- Container for payment logos -->
                             <div class="flex items-center">
                                 <img src="/images/maya-logo.png" alt="Maya Logo" class="h-8 mr-2">
+                                <!-- Maya logo; replace src -->
                                 <span class="text-sm">Maya Online Payment</span>
+                                <!-- Payment method name -->
                             </div>
                             <div class="flex items-center">
                                 <img src="/images/bpi-logo.jpg" alt="BPI Logo" class="h-8 mr-2">
+                                <!-- BPI logo; replace src -->
                                 <span class="text-sm">BPI App</span>
+                                <!-- Payment method name -->
                             </div>
                         </div>
                     </div>
@@ -287,11 +473,17 @@
 
         <!-- Modal for Course Details -->
         <div id="courseModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50" role="dialog" aria-modal="true">
+            <!-- Modal overlay for course details; hidden by default -->
             <div class="bg-white p-8 rounded-lg max-w-md w-full slide-in">
+                <!-- Modal content with slide-in animation -->
                 <h3 id="modalTitle" class="text-2xl font-bold mb-4 text-blue-900"></h3>
+                <!-- Modal title; populated dynamically -->
                 <p id="modalDetails" class="mb-4 whitespace-pre-line"></p>
+                <!-- Modal details; supports line breaks -->
                 <button onclick="closeModal()" class="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 group relative" aria-label="Close Modal">
+                    <!-- Button to close modal -->
                     <span class="absolute hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2 -top-8 left-1/2 transform -translate-x-1/2">Close</span>
+                    <!-- Tooltip for button -->
                     Close
                 </button>
             </div>
@@ -299,16 +491,25 @@
 
         <!-- Confirmation Modal -->
         <div id="confirmModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50" role="dialog" aria-modal="true">
+            <!-- Modal overlay for confirmations; hidden by default -->
             <div class="bg-white p-8 rounded-lg max-w-md w-full slide-in">
+                <!-- Modal content -->
                 <h3 id="confirmTitle" class="text-2xl font-bold mb-4 text-blue-900"></h3>
+                <!-- Confirmation title -->
                 <p id="confirmMessage" class="mb-4"></p>
+                <!-- Confirmation message -->
                 <div class="flex justify-end space-x-4">
+                    <!-- Buttons container -->
                     <button id="confirmCancel" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 group relative" aria-label="Cancel">
+                        <!-- Cancel button -->
                         <span class="absolute hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2 -top-8 left-1/2 transform -translate-x-1/2">Cancel</span>
+                        <!-- Tooltip -->
                         Cancel
                     </button>
                     <button id="confirmAction" class="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 group relative" aria-label="Confirm">
+                        <!-- Confirm button -->
                         <span class="absolute hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2 -top-8 left-1/2 transform -translate-x-1/2">Confirm</span>
+                        <!-- Tooltip -->
                         Confirm
                     </button>
                 </div>
@@ -316,14 +517,20 @@
         </div>
 
         <footer class="bg-blue-900 text-white py-6" role="contentinfo">
+            <!-- Footer with dark blue background; accessible as contentinfo -->
             <div class="container mx-auto px-4 text-center">
+                <!-- Responsive container -->
                 <p class="mb-2">© 2025 MyUniversity Portal. All rights reserved.</p>
+                <!-- Copyright notice -->
                 <p class="mb-2">Find out more about our <a href="#" class="text-yellow-300 hover:underline" aria-label="Data Privacy Policy">Data Privacy Policy</a>.</p>
+                <!-- Privacy policy link; replace href -->
                 <p>Contact: <a href="mailto:info@myuniversity.edu" class="text-yellow-300 hover:underline" aria-label="Email Support">info@myuniversity.edu</a> | <a href="tel:+1234567890" class="text-yellow-300 hover:underline" aria-label="Call Support">(123) 456-7890</a></p>
+                <!-- Contact information with email and phone links -->
             </div>
         </footer>
     </div>
 
     <script src="script.js"></script>
+    <!-- Links to script.js for JavaScript functionality; ensure file exists -->
 </body>
 </html>
