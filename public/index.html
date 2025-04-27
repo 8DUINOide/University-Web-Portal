@@ -30,7 +30,7 @@
             <!-- Semi-transparent white card with padding, rounded corners, and shadow for login form -->
             <img src="/images/logo.jpg" alt="MyUniversity Logo" class="h-14 mx-auto mb-6" aria-hidden="true">
             <!-- Displays university logo; replace src with actual path; marked as decorative -->
-            <h2 class="text-2xl font-bold text-center text-blue-900 mb-8">MyUniversity Login</h2>
+            <h2 class="text-2xl font-bold text-center text-blue-900 mb-8">MyUniversity</h2>
             <!-- Centered login title with bold blue text -->
             <form class="space-y-5" onsubmit="event.preventDefault(); login();">
                 <!-- Form with vertical spacing; prevents default submission and calls login() function -->
@@ -72,7 +72,7 @@
                 <div class="flex items-center">
                     <img src="/images/logo.jpg" alt="MyUniversity Logo" class="h-10 mr-4" aria-hidden="true">
                     <!-- University logo; replace src with actual path; marked as decorative -->
-                    <h1 class="text-xl font-bold">MyUniversity Portal</h1>
+                    <h1 class="text-xl font-bold">MyUniversity</h1>
                     <!-- Portal title; bold and prominent -->
                 </div>
                 <nav aria-label="Main Navigation" class="flex items-center">
@@ -88,10 +88,6 @@
                         <!-- Button to show schedule section -->
                         <li><button onclick="showScreen('calendar')" class="hover:text-yellow-300 transition" aria-label="Calendar">Calendar</button></li>
                         <!-- Button to show calendar section -->
-                        <li><button onclick="showScreen('messages')" class="hover:text-yellow-300 transition" aria-label="Messages">Messages</button></li>
-                        <!-- Button to show messages section -->
-                        <li><button onclick="showScreen('profile')" class="hover:text-yellow-300 transition" aria-label="Profile">Profile</button></li>
-                        <!-- Button to show profile section -->
                         <li><button onclick="logout()" class="hover:text-yellow-300 transition" aria-label="Logout">Logout</button></li>
                         <!-- Button to log out -->
                         <li><span id="notificationCount" class="bg-red-600 text-white rounded-full px-2 py-1 text-xs hidden" aria-live="polite">0</span></li>
@@ -109,7 +105,7 @@
                 <div class="flex items-center mb-6">
                     <img src="/images/logo.jpg" alt="MyUniversity Logo" class="h-14 mx-auto mb-6" loading="lazy" aria-hidden="true">
                     <!-- Sidebar logo; replace src with actual path -->
-                    <h3 class="text-lg font-semibold">AL FRANCIS B. PAZ</h3>
+                    <h3 class="text-lg font-semibold">JOHN DOE</h3>
                     <!-- Static student name; replace with dynamic data in production -->
                 </div>
                 <ul class="space-y-4">
@@ -413,11 +409,51 @@
                             <div class="mb-4">
                                 <label for="profile-email" class="block text-sm font-medium">Email</label>
                                 <!-- Label for email input -->
-                                <input id="profile-email" type="email" value="john.doe@myuniversity.edu" class="p-2 border rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500" oninput="validateEmail()" aria-required="true">
+                                <input id="profile-email" type="email" value="johndoe@myuniversity.edu" class="p-2 border rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500" oninput="validateEmail()" aria-required="true">
                                 <!-- Email input with validation -->
                                 <p id="emailError" class="text-red-600 text-sm mt-1 hidden" role="alert">Invalid email format</p>
                                 <!-- Error message for email -->
                             </div>
+                            <div class="mb-4">
+                                <label for="profile-course" class="block text-sm font-medium">Course</label>
+                                <input id="profile-course" type="text" value="Bachelor of Science in Computer Engineering" class="p-2 border rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500" disabled>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="profile-year" class="block text-sm font-medium">Year Level</label>
+                                <input id="profile-year" type="text" value="3rd Year" class="p-2 border rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500" disabled>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="profile-contact" class="block text-sm font-medium">Contact Number</label>
+                                <input id="profile-contact" type="text" value="0917-123-4567" class="p-2 border rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500" disabled>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="profile-address" class="block text-sm font-medium">Address</label>
+                                <input id="profile-address" type="text" value="1234 University St., Cityville, 12345" class="p-2 border rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500" disabled>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="profile-birthday" class="block text-sm font-medium">Birthday</label>
+                                <input id="profile-birthday" type="date" value="2003-05-20" class="p-2 border rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500" disabled>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="profile-gender" class="block text-sm font-medium">Gender</label>
+                                <input id="profile-gender" type="text" value="Male" class="p-2 border rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500" disabled>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="profile-guardian" class="block text-sm font-medium">Guardian's Name</label>
+                                <input id="profile-guardian" type="text" value="Jane Doe" class="p-2 border rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500" disabled>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="profile-guardian-contact" class="block text-sm font-medium">Guardian's Contact</label>
+                                <input id="profile-guardian-contact" type="text" value="0918-987-6543" class="p-2 border rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500" disabled>
+                            </div>
+                            
                             <button onclick="confirmSaveProfile()" class="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 group relative" aria-label="Save Profile Changes">
                                 <!-- Button to save profile changes -->
                                 <span class="absolute hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2 -top-8 left-1/2 transform -translate-x-1/2">Save</span>

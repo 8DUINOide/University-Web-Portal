@@ -1,7 +1,7 @@
 // Waits for the DOM to fully load before executing the enclosed code
 document.addEventListener("DOMContentLoaded", () => {
     // Logs a welcome message to the console for debugging; remove in production for cleaner logs
-    console.log("Welcome to MyUniversity Portal!");
+    console.log("Welcome to MyUniversity!");
 
     // Lazy-loads background images for elements with the 'lazy-bg' class
     const lazyBgElements = document.querySelectorAll('.lazy-bg');
@@ -19,11 +19,22 @@ document.addEventListener("DOMContentLoaded", () => {
     // Mock student data object simulating backend data; replace with API calls for real-world use
     const studentData = {
         // Student name displayed in the dashboard; update dynamically via authentication
-        name: "Al Francis B. Paz",
+        name: "John Doe",
         // Student ID for login verification; should be unique per user
         id: "123456",
         // Student email for profile; validate format in production
-        email: "alfrancispaz@myuniversity.edu",
+        email: "johndoe@myuniversity.edu",
+         // Additional mockup details
+    yearLevel: "3rd Year",
+    course: "Bachelor of Science in Computer Engineering",
+    address: "1234 University St., Cityville, 12345",
+    contactNumber: "0917-123-4567",
+    birthday: "2003-05-20",
+    gender: "Male",
+    nationality: "Filipino",
+    civilStatus: "Single",
+    guardianName: "Jane Doe",
+    guardianContact: "0918-987-6543",
         // Array of course schedule objects; expand with additional fields (e.g., credits) if needed
         schedule: [
             // Example course entry; modify or add more courses as required
