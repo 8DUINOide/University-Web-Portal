@@ -1,5 +1,5 @@
 # University Web Portal
-	A modern, responsive single-page application (SPA) for university students, providing seamless access to academic schedules, grades, financial statements, calendars, and profile management. Built with vanilla JavaScript for lightweight performance, this portal emphasizes accessibility (ARIA-compliant), security (form validation), and user experience (smooth animations, search, and pagination). Ideal for educational institutions seeking a customizable, deployment-ready frontend.
+A modern, responsive single-page application (SPA) for university students, providing seamless access to academic schedules, grades, financial statements, calendars, and profile management. Built with vanilla JavaScript for lightweight performance, this portal emphasizes accessibility (ARIA-compliant), security (form validation), and user experience (smooth animations, search, and pagination). Ideal for educational institutions seeking a customizable, deployment-ready frontend.
 
 ## Overview
 This portal simulates a full student dashboard, drawing from real-world university systems. Users can log in, view personalized data (e.g., courses, grades, payments), and interact with features like PDF exports and modals. Mock data drives the demo, but it's easily extensible to integrate with APIs (e.g., via fetch). Developed with a focus on mobile-first design and WCAG guidelines, it's performant on low-bandwidth connections and scales across devices.
@@ -63,4 +63,5 @@ For production, integrate with a backend (e.g., Node.js/Express) for auth and da
 Update mock data in script.js.
 Replace CDNs with local files for offline/privacy compliance.
 Add HTTPS for secure forms.
+
 
