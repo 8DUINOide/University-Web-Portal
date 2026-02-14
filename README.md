@@ -1,83 +1,140 @@
 # University Web Portal
-A modern, responsive single-page application (SPA) for university students, providing seamless access to academic schedules, grades, financial statements, calendars, and profile management. Built with vanilla JavaScript for lightweight performance, this portal emphasizes accessibility (ARIA-compliant), security (form validation), and user experience (smooth animations, search, and pagination). Ideal for educational institutions seeking a customizable, deployment-ready frontend.
 
-## Overview
-This portal simulates a full student dashboard, drawing from real-world university systems. Users can log in, view personalized data (e.g., courses, grades, payments), and interact with features like PDF exports and modals. Mock data drives the demo, but it's easily extensible to integrate with APIs (e.g., via fetch). Developed with a focus on mobile-first design and WCAG guidelines, it's performant on low-bandwidth connections and scales across devices.
-## Features
+> A modern, responsive, and accessible student portal simulation designed for university environments. Built with vanilla JavaScript and Tailwind CSS for a lightweight, dependency-free experience.
 
-### Secure Login: 
-Form validation with real-time feedback and demo authentication.
-### Dashboard Navigation: 
-Sidebar menu with sections for Home, Offerings, Advisement (Schedule), Grades, Credited Subjects, My Subjects, Accounts (SOA), Profile, and Messages.
-### Academic Tools:
+[**Live Demo**](https://8DUINOide.github.io/University-Web-Portal/)
 
-Paginated schedules and subject offerings with search and modal details.
-Grades viewer with QPI calculations, school year navigation, and semester breakdowns.
-Credited subjects table with unit tracking.
-Interactive calendar with events and tooltips.
+---
 
+## 📖 Overview
 
-### Financial Management:
-Statement of Account (SOA) with balance, due dates, payment history, and PDF download via jsPDF.
-### User Profile: 
-Editable fields (name, email) with validation and confirmation modals.
-### Notifications & Messages: 
-Dynamic alerts and threaded messaging.
-### Responsive UI: 
-Mobile sidebar, hover tooltips, and animations (fade-in, slide-in).
-### Accessibility: 
-ARIA labels, focus management, and semantic HTML.
+The **University Web Portal** is a Single-Page Application (SPA) that simulates a comprehensive student dashboard. It provides a seamless interface for students to manage their academic life, from viewing schedules and grades to checking financial statements and updating profiles.
 
-## Tech Stack
+Designed with **accessibility (WCAG 2.1)** and **performance** in mind, this project demonstrates how to build complex, interactive UI/UX without the overhead of heavy frameworks. The entire application logic is contained within `script.js`, making it easy to understand and modify.
 
-### Frontend: 
-HTML5, CSS3 (Tailwind CSS via CDN for utilities), Vanilla JavaScript (ES6+).
-### Libraries: 
-jsPDF (PDF generation), Font Awesome (icons), Google Fonts (Poppins).
-### Tools: 
-Responsive design (media queries), Debounced search, Pagination, Animations (CSS keyframes).
-### Compliance: 
-WCAG 2.1 AA (ARIA, keyboard nav), Cross-browser (Chrome, Firefox, Safari).
+## ✨ Key Features
 
-No backend required for demo; extend with REST APIs for production.
+*   **🔐 Secure & Validated Login**: Mock authentication (ID: `123456`, Pass: `password`) with real-time form validation.
+*   **📊 Comprehensive Dashboard**: Access to Schedule, Grades, Offerings, and Profile.
+*   **📅 Interactive Tools**: Dynamic calendar, paginated class schedules, and searchable subject offerings.
+*   **💰 Financial Management**: View Statement of Account (SOA) and download as PDF.
+*   **📱 Fully Responsive**: Mobile-first design with a collapsible sidebar and touch-friendly controls.
+*   **⚡ Lightweight**: Zero-dependency frontend logic using vanilla ES6+ JavaScript.
 
-## Running Locally
+## 🛠️ Tech Stack
 
-Open https://8duinoide.github.io/University-Web-Portal/public/index.html in a modern browser (e.g., Chrome).
-Demo login: Student ID 123456, Password password.
-Navigate via sidebar or top menu; data loads dynamically.
+*   **Frontend**: HTML5, Vanilla JavaScript (ES6+)
+*   **Styling**: Tailwind CSS (via CDN) + Custom CSS (`styles.css`)
+*   **Libraries**: 
+    *   `jsPDF` - Client-side PDF generation for SOA.
+    *   `Font Awesome` - Scalable vector icons.
+    *   `Google Fonts` - Poppins typography.
 
-Test on mobile: Resize browser or use dev tools. No server needed—runs offline after asset load.
-## Live Demo
-Test the portal instantly via GitHub Pages: https://8duinoide.github.io/University-Web-Portal/public/index.html
-Use demo credentials: Student ID 123456, Password password. 
+---
 
-## Usage
+## 📂 Project Architecture
 
-### Login: 
-Enter credentials; dashboard defaults to Calendar.
-### Navigation:
-Click sidebar items (e.g., "Grades" for QPI view).
-### Interactions:
+The project follows a simple, flat structure optimized for GitHub Pages deployment.
 
-Search schedules/offerings with debounce (300ms delay).
-Download SOA as PDF or toggle sections (e.g., expand/collapse lists).
-Edit profile: Save triggers validation and confirmation.
+```text
+/ (root)
+├── index.html       # The main entry point containing all views (screens)
+├── script.js        # Contains ALL application logic and mock data
+├── styles.css       # Custom styles for animations and specific overrides
+├── server.js        # Simple Node.js server for local development
+└── assets/          # Directory for static images (logos, backgrounds)
+```
 
+### How the SPA Works
+This application uses a "hide/show" mechanism to simulate navigation without page reloads.
+1.  **Views**: All screens (Home, Schedule, Grades, etc.) exist in `index.html` but are hidden by default using the `.hidden` class.
+2.  **Navigation**: The `showScreen(screenId)` function hides all sections and reveals only the target section.
+3.  **State**: Current state (pagination, selected year, etc.) is managed via global variables in `script.js`.
 
-### Demo Data: 
-Mocked in script.js; replace studentData with API fetches (e.g., fetch('/api/student')).
+---
 
-For production, integrate with a backend (e.g., Node.js/Express) for auth and data.
+## 🧠 Core Logic & Functions
 
-## Deployment
+The `script.js` file is the brain of the application. Here are the key components:
 
-### Static Hosting: 
-Upload to GitHub Pages, Netlify, or Vercel (drag-and-drop index.html, script.js, styles.css, /images).
-### Customization:
-Update mock data in script.js.
-Replace CDNs with local files for offline/privacy compliance.
-Add HTTPS for secure forms.
+### 1. Mock Data (`studentData`)
+Instead of a backend, the app uses a massive JSON-like object `studentData` to store all information.
+*   **Structure**: Contains `name`, `id`, `schedule` (array), `gradesByYear` (nested object), `soa` (object), etc.
+*   **Customization**: You can edit this object directly in `script.js` to change the student's information, grades, or schedule.
 
+### 2. Rendering Functions
+These functions dynamically generate HTML based on the `studentData`.
+*   `renderNotifications()`: Populates the notification panel.
+*   `renderPaginatedCourses(section, items, page)`: Handles pagination for Schedule and Offerings.
+*   `renderGrades()`: Builds the grades table and calculates QPI (Quality Point Index) on the fly.
+*   `renderCalendar()`: Generates the interactive calendar events.
 
+### 3. Utility Functions
+*   `validateLogin()`: Checks input fields in real-time.
+*   `calculateQPI(grades)`: Computes the GPA/QPI based on units and letter grades.
+*   `toggleSection(id)`: Collapses/Expands UI elements like the Sidebar or specific cards.
 
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+*   A modern web browser (Chrome, Edge, Firefox, Safari)
+*   **Optional**: Node.js (for the local server script)
+
+### Installation & Run
+
+1.  **Clone the repository**
+    ```bash
+    git clone https://github.com/8DUINOide/University-Web-Portal.git
+    cd University-Web-Portal
+    ```
+
+2.  **Run Locally (Node.js)**
+    ```bash
+    npm install express # Install the simple server dependency
+    node server.js
+    # Open http://localhost:3000 in your browser
+    ```
+
+3.  **Run Locally (Python)**
+    ```bash
+    python -m http.server 3000
+    # Open http://localhost:3000 in your browser
+    ```
+
+---
+
+## 🎨 Customization Guide
+
+### Changing the Color Scheme
+The project uses **Tailwind CSS**. To change the theme:
+1.  Open `index.html`.
+2.  Find classes like `bg-blue-900` (primary color) or `text-blue-600`.
+3.  Replace them with your desired Tailwind color (e.g., `bg-red-800`, `text-green-500`).
+
+### Replacing the Logo
+1.  Place your new logo file in the `assets/` folder.
+2.  Open `index.html`.
+3.  Search for `assets/logo.jpg` and replace it with your filename.
+
+### Connecting to a Real Backend
+To make this a real app:
+1.  Remove the `studentData` object in `script.js`.
+2.  Replace the `render...` calls with `fetch()` requests to your API.
+    ```javascript
+    // Example
+    fetch('/api/student/grades')
+      .then(response => response.json())
+      .then(data => renderGrades(data));
+    ```
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📄 License
+
+This project is open-source and available under the [MIT License](LICENSE).
